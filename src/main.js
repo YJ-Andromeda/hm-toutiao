@@ -6,6 +6,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import router from '@/router'
 
+// 导入样式
+import '@/styles/index.less'
+
+import axios from 'axios'
+// 全局挂载
+Vue.prototype.$http = axios
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
