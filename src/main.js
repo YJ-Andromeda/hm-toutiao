@@ -9,7 +9,7 @@ import router from '@/router'
 // 导入样式
 import '@/styles/index.less'
 
-import axios from 'axios'
+import axios from '@/api'
 // 全局挂载
 Vue.prototype.$http = axios
 

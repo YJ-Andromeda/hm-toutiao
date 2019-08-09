@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     // 自定义校验函数
@@ -51,15 +52,27 @@ export default {
   },
   methods: {
     login () {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(async (valid) => {
         if (valid) {
           // 校验成功发起登录请求
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm).then(res => {
-            console.log(res.data)
+          // this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm).then(res => {
+          //   // console.log(res.data)
+          //   // 存储用户信息
+          //   store.setUser(res.data.data)
+          //   this.$router.push('/')
+          // }).catch(() => {
+          //   this.$message.error('手机号或验证码错误')
+          // })
+
+          // async 和 await的使用
+          // 捕获代码运行异常  try{可能会执行报错代码}catch(e){处理错误}
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
             this.$router.push('/')
-          }).catch(() => {
+          } catch (e) {
             this.$message.error('手机号或验证码错误')
-          })
+          }
         }
       })
     }
